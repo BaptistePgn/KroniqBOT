@@ -23,7 +23,7 @@ client.once("ready", async () => {
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
 
-    await handleCommand(interaction);
+    await handleCommand(client, interaction);
 });
 
 client.login(process.env.TOKEN)
@@ -33,5 +33,3 @@ client.login(process.env.TOKEN)
     .catch((error) => {
         console.error("Error logging in", error);
     });
-
-export default client;
