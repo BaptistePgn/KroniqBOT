@@ -1,12 +1,14 @@
-# KoniqBot is a discord bot 
+# KroniqBot is a discord bot
 
 ## Requirements
+
 - Node.js
 - discord.js
 - dotenv
-- pnpm 
+- pnpm
 
 ## Installation
+
 1. Clone the repository
 2. pnmp install
 3. Create a .env file and add the following

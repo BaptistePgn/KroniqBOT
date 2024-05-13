@@ -8,6 +8,7 @@ export interface Command {
     name: string;
     description: string;
     builder?: any;
+
     execute(interaction: CommandInteraction, player: Player): Promise<void>;
 }
 
@@ -38,6 +39,6 @@ export async function handleCommand(client: KroniqClient, interaction: CommandIn
         await command.execute(interaction, client.player);
     } catch (error) {
         console.error(error);
-        await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
+        await interaction.reply({content: "There was an error while executing this command!", ephemeral: true});
     }
 }
