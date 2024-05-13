@@ -1,6 +1,6 @@
-import { Command } from "../index";
-import { CommandInteraction, GuildMember, SlashCommandBuilder } from "discord.js";
-import { Player } from "discord-player";
+import {Command} from "../index";
+import {CommandInteraction, GuildMember, SlashCommandBuilder} from "discord.js";
+import {Player} from "discord-player";
 
 export class PlayCommand implements Command {
     name = "play";
@@ -49,7 +49,7 @@ export class PlayCommand implements Command {
             queue.metadata = interaction.channel;
 
             // Connect to the voice channel if not already connected
-            if (!queue.connection){
+            if (!queue.connection) {
                 await queue.connect(voiceChannel);
             }
             queue.addTrack(track);
