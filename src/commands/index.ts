@@ -1,8 +1,8 @@
-import {PingCommand} from "./utils/ping";
 import {KroniqClient} from "../kroniqClient";
 import {CommandInteraction} from "discord.js";
-import {PlayCommand} from "./music/play";
 import {Player} from "discord-player";
+import {readdirSync} from "fs";
+
 
 export interface Command {
     name: string;
@@ -15,9 +15,21 @@ export interface Command {
 export async function deployCommands(client: KroniqClient) {
     client.commands = new Map();
 
-    [new PingCommand(), new PlayCommand()].forEach((command) => {
-        client.commands.set(command.name, command);
-    });
+    // Browse all the directories in the commands folder and load all the commands
+    let count = 0;
+    const dirsCommands = readdirSync("./src/commands").filter(dir => !dir.endsWith(".ts"));
+
+    for (const dir of dirsCommands) {
+        const filesDirs = readdirSync(`./src/commands/${dir}`).filter(file => file.endsWith(".ts"));
+        for (const file of filesDirs) {
+            const command = require(`./${dir}/${file}`);
+            const instance = new command[Object.keys(command)[0]]() as Command;
+            client.commands.set(instance.name, instance);
+            count++;
+        }
+    }
+
+    console.log(`Loaded ${count} commands`);
 
     if (!client.application) return;
 

@@ -1,15 +1,7 @@
 import {KroniqClient} from "./kroniqClient";
 import * as process from "process";
 import * as dotenv from "dotenv";
-import {Command, deployCommands, handleCommand} from "./commands";
-
-
-// extend the Client class to include a commands property
-declare module "discord.js" {
-    interface Client {
-        commands: Map<string, Command>;
-    }
-}
+import {deployCommands, handleCommand} from "./commands";
 
 dotenv.config();
 
