@@ -1,15 +1,28 @@
 {
+  "name": "kroniq-bot",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A discord bot that plays music and other stuff",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "jiti src/index.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint ."
   },
   "dependencies": {
     "@discord-player/extractor": "^4.4.7",
-    "@discordjs/voice": "^0.17.0",
     "@discordjs/opus": "^0.9.0",
+    "@discordjs/voice": "^0.17.0",
     "discord-player": "^6.6.8",
-    "discord.js": "^14.14.1",
+    "discord.js": "^14.15.2",
     "dotenv": "^16.4.5",
-    "ts-node": "^10.9.2",
+    "jiti": "^1.21.0",
     "ytdl-core": "^4.11.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.3.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "eslint": "^9.3.0",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.9.0"
   }
 }

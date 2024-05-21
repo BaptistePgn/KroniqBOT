@@ -1,5 +1,5 @@
 import {KroniqClient} from "../kroniqClient";
-import {CommandInteraction} from "discord.js";
+import {CommandInteraction, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder} from "discord.js";
 import {Player} from "discord-player";
 import {readdirSync} from "fs";
 
@@ -7,7 +7,7 @@ import {readdirSync} from "fs";
 export interface Command {
     name: string;
     description: string;
-    builder?: any;
+    builder?: SlashCommandBuilder | SlashCommandOptionsOnlyBuilder;
 
     execute(interaction: CommandInteraction, player: Player): Promise<void>;
 }
@@ -22,7 +22,7 @@ export async function deployCommands(client: KroniqClient) {
     for (const dir of dirsCommands) {
         const filesDirs = readdirSync(`./src/commands/${dir}`).filter(file => file.endsWith(".ts"));
         for (const file of filesDirs) {
-            const command = require(`./${dir}/${file}`);
+            const command = await import(`./${dir}/${file}`);
             const instance = new command[Object.keys(command)[0]]() as Command;
             client.commands.set(instance.name, instance);
             count++;
@@ -39,7 +39,7 @@ export async function deployCommands(client: KroniqClient) {
             description: command.description,
             options: command.builder?.toJSON().options,
         }))
-    ).then(r => console.log(r)).catch(console.error);
+    ).then(r => { console.log(r); }).catch(console.error);
 }
 
 export async function handleCommand(client: KroniqClient, interaction: CommandInteraction) {
